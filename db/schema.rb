@@ -10,12 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_27_111752) do
+ActiveRecord::Schema.define(version: 2019_04_27_145310) do
 
   create_table "brands", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "carts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "user_id"
+    t.index ["product_id"], name: "index_carts_on_product_id"
+    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -24,10 +31,36 @@ ActiveRecord::Schema.define(version: 2019_04_27_111752) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "coupons", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "percentage"
+    t.datetime "expire_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_images_on_product_id"
+  end
+
+  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.decimal "total_paid", precision: 10
+    t.bigint "user_id"
+    t.bigint "coupon_id"
+    t.bigint "state_id"
+    t.index ["coupon_id"], name: "index_orders_on_coupon_id"
+    t.index ["state_id"], name: "index_orders_on_state_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "orders_products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "user_id"
+    t.index ["order_id"], name: "index_orders_products_on_order_id"
+    t.index ["user_id"], name: "index_orders_products_on_user_id"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -43,6 +76,37 @@ ActiveRecord::Schema.define(version: 2019_04_27_111752) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "states", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "stores", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_stores_on_user_id"
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.string "address"
+    t.string "avatar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "carts", "products"
+  add_foreign_key "carts", "users"
+  add_foreign_key "images", "products"
+  add_foreign_key "orders", "coupons"
+  add_foreign_key "orders", "states"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders_products", "orders"
+  add_foreign_key "orders_products", "users"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "categories"
+  add_foreign_key "stores", "users"
 end
