@@ -1,24 +1,40 @@
-# README
+# Cart-On-Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+eCommerce Platform -Using the Rails framework
 
-Things you may want to cover:
+Things you may want to know:
 
-* Ruby version
+* Ruby version '2.6.1'
 
 * System dependencies
 
+  Rails 5.2.x
+  MYSQL
+  use this commend to install missing gems
+```
+bundle install
+```
 * Configuration
 
-* Database creation
+```
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 5.2.3'
+# Use mysql as the database for Active Record
+gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+# Use Puma as the app server
+gem 'puma', '~> 3.11'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'mini_racer', platforms: :ruby
 
-* Database initialization
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.2'
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
