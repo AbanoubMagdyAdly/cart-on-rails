@@ -9,12 +9,14 @@ Things you may want to know:
 * System dependencies
 
   Rails 5.2.x
+  
   MYSQL
+  
   use this commend to install missing gems
 ```
 bundle install
 ```
-* Configuration
+* required gems for deployment
 
 ```
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
