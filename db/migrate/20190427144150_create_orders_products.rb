@@ -1,0 +1,8 @@
+class CreateOrdersProducts < ActiveRecord::Migration[5.2]
+  def change
+    create_table :orders_products do |t|
+      t.references :order, foreign_key: true
+      t.references :user, foreign_key: true
+    end
+  end
+end
