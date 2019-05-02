@@ -64,6 +64,8 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# dotenv gem
+# use for configuring and loading .env files
 gem 'dotenv-rails', groups: [:development, :test]
+
+# use for creating json web tokens
+gem 'jwt'
