@@ -1,15 +1,18 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_request, except: :create
+  before_action :find_user, except: %i[create index]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+    render json: @users, status: :ok
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    render json: @user, status: :ok
   end
 
   # GET /users/new
@@ -67,8 +70,13 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def find_user
+      @user = User.find_by_username!(params[:_username])
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: 'User not found' }, status: :not_found
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :address, :avatar)
+      params.require(:user).permit(:name, :username, :email, :password, :password_confirmation, :address, :avatar)
     end
 end
