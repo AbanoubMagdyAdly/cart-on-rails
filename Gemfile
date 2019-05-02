@@ -69,3 +69,6 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 # use for creating json web tokens
 gem 'jwt'
+
+# use for uploading avatars
+gem 'carrierwave', '~> 1.0'
