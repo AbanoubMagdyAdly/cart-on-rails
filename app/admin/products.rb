@@ -2,11 +2,12 @@ ActiveAdmin.register Product do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :title, :category_id, :brand_id, :description,:price, :in_stock, product_images:[]
+permit_params :title, :category_id,:store_id, :brand_id, :description,:price, :in_stock, product_images:[]
 form html: { multipart: true } do |f|
     f.inputs do
       f.input :category
       f.input :brand
+      f.input :store
       f.input :title
       f.input :description
       f.input :price
