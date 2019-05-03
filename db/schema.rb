@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2019_05_03_190456) do
     t.boolean "is_approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role", default: "seller", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -100,9 +101,14 @@ ActiveRecord::Schema.define(version: 2019_05_03_190456) do
     t.bigint "brand_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
     t.json "product_images"
+=======
+    t.bigint "store_id"
+>>>>>>> 65c60e26344b732705eb2707d53d0129d8bffb14
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["store_id"], name: "index_products_on_store_id"
   end
 
   create_table "states", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -114,8 +120,8 @@ ActiveRecord::Schema.define(version: 2019_05_03_190456) do
     t.string "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_stores_on_user_id"
+    t.bigint "admin_user_id"
+    t.index ["admin_user_id"], name: "index_stores_on_admin_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -138,5 +144,6 @@ ActiveRecord::Schema.define(version: 2019_05_03_190456) do
   add_foreign_key "orders_products", "users"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "categories"
-  add_foreign_key "stores", "users"
+  add_foreign_key "products", "stores"
+  add_foreign_key "stores", "admin_users"
 end
