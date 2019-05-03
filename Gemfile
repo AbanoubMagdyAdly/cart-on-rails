@@ -8,6 +8,7 @@ gem 'cancancan'
 gem 'devise'
 
 gem 'activeadmin'
+gem 'active_model_serializers'
 
 gem 'devise_token_auth'
 
