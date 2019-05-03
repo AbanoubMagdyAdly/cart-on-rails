@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  protect_from_forgery unless: -> { request.format.json? }
   before_action :find_user, except: %i[create index]
 
   # GET /users
