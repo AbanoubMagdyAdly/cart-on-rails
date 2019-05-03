@@ -87,9 +87,9 @@ ActiveRecord::Schema.define(version: 2019_05_03_085958) do
 
   create_table "orders_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "order_id"
-    t.bigint "user_id"
+    t.bigint "product_id"
     t.index ["order_id"], name: "index_orders_products_on_order_id"
-    t.index ["user_id"], name: "index_orders_products_on_user_id"
+    t.index ["product_id"], name: "index_orders_products_on_product_id"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 2019_05_03_085958) do
   add_foreign_key "orders", "states"
   add_foreign_key "orders", "users"
   add_foreign_key "orders_products", "orders"
-  add_foreign_key "orders_products", "users"
+  add_foreign_key "orders_products", "products"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "stores"
