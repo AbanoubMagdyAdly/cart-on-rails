@@ -10,7 +10,7 @@ class Ability
       can :read, ActiveAdmin::Page, name: "Dashboard", namespace_name: "admin"
 
     else
-      can :manage, Product #, store.admin_user.id = user.id 
+      can :manage, Product , :store_id => user.store.id
       can :read, ActiveAdmin::Page, name: "Dashboard", namespace_name: "admin"
 
     end
