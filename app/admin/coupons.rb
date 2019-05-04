@@ -2,7 +2,7 @@ ActiveAdmin.register Coupon do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :percentage , :expire_at , :usage_number
+permit_params :code, :percentage, :expire_at , :usage_number
 #
 # or
 #
