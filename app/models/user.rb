@@ -4,7 +4,7 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   # TODO: change avatar to be compatible with APIs
-  # mount_uploader :avatar, AvatarUploader
+  mount_uploader :avatar, AvatarUploader
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   # validates :password_digest, 
