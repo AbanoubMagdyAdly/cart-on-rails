@@ -4,4 +4,7 @@ class AdminUser < ApplicationRecord
   devise :database_authenticatable, 
          :recoverable, :rememberable, :validatable
   has_one :store
+    def display_name
+     email
+   end
 end
