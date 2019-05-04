@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApiController
   before_action :find_user, except: %i[create index]
 
   # GET /users
