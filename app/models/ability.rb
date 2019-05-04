@@ -11,6 +11,7 @@ class Ability
 
     else
       can :manage, Product , :store_id => user.store.id
+      can :update, Order , :store_id  => user.store.id
       can :read, ActiveAdmin::Page, name: "Dashboard", namespace_name: "admin"
 
     end
