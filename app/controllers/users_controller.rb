@@ -1,6 +1,6 @@
 class UsersController < ApiController
   before_action :find_user, except: %i[create index]
-
+  protect_from_forgery unless: -> { request.format.json? }
   # GET /users
   # GET /users.json
   def index
@@ -27,7 +27,7 @@ class UsersController < ApiController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    puts (user_params)
     respond_to do |format|
       if @user.save
         format.json { render :show, status: :created, location: @user }
