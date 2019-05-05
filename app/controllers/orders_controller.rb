@@ -1,9 +1,10 @@
-class OrdersController < ApplicationController
+class OrdersController < ApiController
   before_action :set_order, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /orders
   def index
-    @orders = Order.get_user_orders
+    @orders = Order.get_user_orders(current_user)
     render json: @orders
   end
 
@@ -14,7 +15,7 @@ class OrdersController < ApplicationController
 
   # POST /orders
   def create
-    @carts = Order.get_carts_of_current_user
+    @carts = Order.get_carts_of_current_user(current_user)
     @products = get_products_from_cart(@carts)
     @total_price = get_total_paid(@products)
     @store_id = @products[0].store_id

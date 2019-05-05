@@ -4,11 +4,11 @@ class Order < ApplicationRecord
     belongs_to :coupon
     has_and_belongs_to_many :products
 
-    def self.get_carts_of_current_user
-        Cart.get_carts_of_current_user
+    def self.get_carts_of_current_user(user)
+        Cart.get_carts_of_current_user(user)
     end
 
-    def self.get_user_orders
-        where(:user_id => 1)
+    def self.get_user_orders(user)
+        where(:user_id => user.id)
     end
 end
