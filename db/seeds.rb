@@ -12,3 +12,40 @@ AdminUser.create!(  email: 'admin@example.com',
                     is_approved: 1,
                     role: 'admin'
                     ) if Rails.env.development?
+State.create!(      name: 'Pending')
+State.create!(      name: 'Confirmed')
+State.create!(      name: 'Delivered')
+AdminUser.create!(  email: 'seller@example.com',
+                    password: 'password',
+                    password_confirmation: 'password' ,
+                    is_approved: 1,
+                    role: 'seller')
+Store.create!(      name: 'lc Wikiki',
+                    summary: 'Shop',
+                    admin_user_id: 2)
+Brand.create!(      title: 'Nike')
+Category.create!(   title: 'shirts')
+Product.create!(    title: 'Blue Shirt',
+                    description: "Shirt",
+                    price: 100,
+                    in_stock: 10,
+                    category_id: 1,
+                    brand_id: 1,
+                    store_id: 1,
+                    product_images: ["my-404-error.png"])
+Product.create!(    title: 'Red Shirt',
+                    description: "Shirt",
+                    price: 120,
+                    in_stock: 12,
+                    category_id: 1,
+                    brand_id: 1,
+                    store_id: 1,
+                    product_images: ["my-404-error.png"])
+Product.create!(    title: 'Black Shirt',
+                    description: "Shirt",
+                    price: 150,
+                    in_stock: 15,
+                    category_id: 1,
+                    brand_id: 1,
+                    store_id: 1,
+                    product_images: ["my-404-error.png"])
