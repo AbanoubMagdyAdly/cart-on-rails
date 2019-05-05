@@ -3,8 +3,7 @@ class OrdersController < ApplicationController
 
   # GET /orders
   def index
-    @orders = Order.all
-
+    @orders = Order.get_user_orders
     render json: @orders
   end
 
@@ -15,27 +14,18 @@ class OrdersController < ApplicationController
 
   # POST /orders
   def create
-    @order = Order.new(order_params)
+    @carts = Order.get_carts_of_current_user
+    @products = get_products_from_cart(@carts)
+    @total_price = get_total_paid(@products)
+    @store_id = @products[0].store_id
+    @user_id = @carts[0].user_id
 
+    @order = Order.new( store_id: @store_id , total_paid: @total_price , user_id: @user_id , state_id: 1 ,coupon_id: 1)
     if @order.save
       render json: @order, status: :created, location: @order
     else
       render json: @order.errors, status: :unprocessable_entity
     end
-  end
-
-  # PATCH/PUT /orders/1
-  def update
-    if @order.update(order_params)
-      render json: @order
-    else
-      render json: @order.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /orders/1
-  def destroy
-    @order.destroy
   end
 
   private
@@ -47,5 +37,24 @@ class OrdersController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def order_params
       params.fetch(:order, {})
+    end
+
+    def get_total_paid(products)
+      total=0
+      products.each do |product|
+        total += product.price
+      end
+      total
+    end
+
+    def get_products_from_cart(cart)
+      products = []
+      cart.each do |item|
+        products.append(item.product)
+      end
+      products
+    end
+
+    def divide_products_according_to_store(products)
     end
 end
