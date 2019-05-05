@@ -49,3 +49,6 @@ Product.create!(    title: 'Black Shirt',
                     brand_id: 1,
                     store_id: 1,
                     product_images: ["my-404-error.png"])
+Cart.create!(product_id:1, user_id:1, quantity:3)
+Cart.create!(product_id:2, user_id:1, quantity:4)
+Cart.create!(product_id:3, user_id:1, quantity:5)
