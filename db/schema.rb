@@ -61,9 +61,11 @@ ActiveRecord::Schema.define(version: 2019_05_05_170032) do
   end
 
   create_table "coupons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "percentage"
+    t.integer "amount", default: 0
     t.datetime "expire_at"
-    t.integer "usage_number"
+    t.integer "limit", default: 0
+    t.integer "used", default: 0, null: false
+    t.boolean "percentage", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "code"
