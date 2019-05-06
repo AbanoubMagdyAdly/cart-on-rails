@@ -11,4 +11,8 @@ class Order < ApplicationRecord
     def self.get_user_orders(user)
         where(:user_id => user.id)
     end
+
+    def self.get_coupon(code)
+        coupon=Coupon.find_by(code: code)
+    end
 end
