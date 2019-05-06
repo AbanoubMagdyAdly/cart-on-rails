@@ -16,8 +16,10 @@ class OrdersController < ApiController
   # POST /orders
   def create
     @carts = Order.get_carts_of_current_user(current_user)
-    @products = get_products_from_cart(@carts)
-    @total_price = get_total_paid(@products)
+    @products_quantities = get_products_quantities_from_cart(@carts)
+    @products = @products_quantities[0]
+    @quantities = @products_quantities[1]
+    @total_price = get_total_paid(@products , @quantities)
     @store_id = @products[0].store_id
     @user_id = @carts[0].user_id
 
@@ -40,20 +42,22 @@ class OrdersController < ApiController
       params.fetch(:order, {})
     end
 
-    def get_total_paid(products)
+    def get_total_paid(products, quantities)
       total=0
-      products.each do |product|
-        total += product.price
+      products.zip(quantities).each do |product , quantity|
+        total += product.price  * quantity
       end
       total
     end
 
-    def get_products_from_cart(cart)
+    def get_products_quantities_from_cart(cart)
       products = []
+      quantities = []
       cart.each do |item|
         products.append(item.product)
+        quantities.append(item.quantity)
       end
-      products
+      [ products , quantities ]
     end
 
     def divide_products_according_to_store(products)
