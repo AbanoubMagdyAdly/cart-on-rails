@@ -23,14 +23,16 @@ class CartsController < ApiController
         @cart.quantity += 1
       else
         @cart.quantity -= 1
-        @cart.quantity = [@cart.quantity, 1].max
       end
     end
 
-    if @cart.save
-      render json: @cart, status: :created, location: @cart
+    if @cart.quantity > @cart.product.in_stock
+      render json: { response: 'Exceeded maximum available quantity' }, status: 406
+    elsif @cart.quantity < 1
+      render json: { response: 'Can not order less than one item' }, status: 406
     else
-      render json: @cart.errors, status: :unprocessable_entity
+      @cart.save
+      render json: @cart, status: :created, location: @cart
     end
   end
 

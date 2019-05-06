@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_06_213543) do
+ActiveRecord::Schema.define(version: 2019_05_06_204315) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -128,6 +128,15 @@ ActiveRecord::Schema.define(version: 2019_05_06_213543) do
     t.index ["admin_user_id"], name: "index_stores_on_admin_user_id"
   end
 
+  create_table "user_coupons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "coupon_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coupon_id"], name: "index_user_coupons_on_coupon_id"
+    t.index ["user_id"], name: "index_user_coupons_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -156,4 +165,6 @@ ActiveRecord::Schema.define(version: 2019_05_06_213543) do
   add_foreign_key "products", "categories"
   add_foreign_key "products", "stores"
   add_foreign_key "stores", "admin_users"
+  add_foreign_key "user_coupons", "coupons"
+  add_foreign_key "user_coupons", "users"
 end
