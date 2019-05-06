@@ -27,13 +27,12 @@ class UsersController < ApiController
   def create
     @user = User.new(user_params)
     puts (user_params)
-    respond_to do |format|
-      if @user.save
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      render :json => { response: 'Success' }, status: 200
+    else
+      render :json => { response: @user.errors }, status: :unprocessable_entity
     end
+    
   end
 
   # PATCH/PUT /users/1
