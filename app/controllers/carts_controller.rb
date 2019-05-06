@@ -3,7 +3,7 @@ class CartsController < ApiController
   before_action :authenticate_user!
   # GET /carts
   def index
-    @carts = Cart.all
+    @carts = Cart.get_carts_of_current_user(current_user)
 
     render json: @carts
   end
