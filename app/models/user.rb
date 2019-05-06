@@ -19,4 +19,5 @@ class User < ApplicationRecord
   # on: :update
   has_many :products, through: :carts
   has_many :carts
+  has_many :coupons
 end
