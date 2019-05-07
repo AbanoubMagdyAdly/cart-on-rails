@@ -28,6 +28,7 @@ class OrdersController < ApiController
 
     if @order.save
       @order.products << @products
+      @carts.delete_all()
       render json: @order, status: :created, location: @order
     else
       render json: @order.errors, status: :unprocessable_entity
