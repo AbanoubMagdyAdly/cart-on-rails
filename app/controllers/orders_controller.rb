@@ -25,7 +25,9 @@ class OrdersController < ApiController
     @coupon = Order.get_coupon(params[:coupon_code])
 
     @order = Order.new( store_id: @store_id , total_paid: @total_price , user_id: @user_id , state_id: 1 ,coupon_id: @coupon.id)
+
     if @order.save
+      @order.products << @products
       render json: @order, status: :created, location: @order
     else
       render json: @order.errors, status: :unprocessable_entity
