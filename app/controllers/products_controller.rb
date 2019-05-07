@@ -3,7 +3,7 @@ class ProductsController < ApiController
 
   # GET /products json
   def index
-    @products = Product.all
+    @products = Product.search(params['query'])
     render json: @products
   end
 
