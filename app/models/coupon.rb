@@ -5,22 +5,26 @@ class Coupon < ApplicationRecord
   validates :limit, presence: true
   validates :expire_at , presence: true
   
-  def self.is_valid?(code)
+  def self.is_valid?(code , user_id)
       coupon=Coupon.find_by(code: code)
-        (coupon.expire_at.nil? || coupon.expire_at >= Date.current) &&
-        (coupon.limit == 0 || coupon.limit > coupon.used)
+        if coupon #&& !UserCoupon.already_used?(user_id,code)
+          (coupon.expire_at.nil? || coupon.expire_at >= Date.current) &&
+          (coupon.limit == 0 || coupon.limit > coupon.used)
+          return true
+        end
+      return false
   end
-  def self.discounted_price(price,code)
-      coupon=Coupon.find_by(code: code)
-      new_price = if is_valid?(code)
-                    if coupon.percentage
-                      price - (price * (coupon.amount/100))
-                    else
-                      (price - coupon.amount)
-                    end
+  def self.discounted_price(price,code,user_id)
+    coupon = Coupon.find_by(code: code)
+    new_price = if is_valid?(code ,user_id)
+                  if coupon.percentage
+                    price - (price * (coupon.amount/100))
                   else
-                    price
+                    (price - coupon.amount)
                   end
+                else
+                  price
+                end
   return new_price
   end
 
