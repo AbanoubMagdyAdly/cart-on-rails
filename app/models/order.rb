@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
     belongs_to :user
     belongs_to :state
-    belongs_to :coupon
+    belongs_to :coupon ,optional: true
     has_and_belongs_to_many :products
 
     def self.get_carts_of_current_user(user)
