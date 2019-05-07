@@ -24,8 +24,11 @@ class OrdersController < ApiController
     @user_id = @carts[0].user_id
     @coupon = Order.get_coupon(params[:coupon_code])
     @total_paid = Coupon.discounted_price(@total_price , params[:coupon_code] , current_user.id)
-    @order = Order.new( store_id: @store_id , total_paid: @total_paid , user_id: @user_id , state_id: 1 ,coupon_id: @coupon.id)
-
+    if @coupon != nil
+       @order = Order.new( store_id: @store_id , total_paid: @total_paid , user_id: @user_id , state_id: 1 ,coupon_id: @coupon.id )
+    else 
+       @order = Order.new( store_id: @store_id , total_paid: @total_paid , user_id: @user_id , state_id: 1 )
+    end
     if @order.save
       @order.products << @products
       @carts.delete_all()

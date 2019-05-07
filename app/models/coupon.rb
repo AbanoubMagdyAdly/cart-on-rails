@@ -7,7 +7,7 @@ class Coupon < ApplicationRecord
   
   def self.is_valid?(code , user_id)
       coupon=Coupon.find_by(code: code)
-        if coupon && !UserCoupon.already_used?(user_id,code)
+        if coupon #&& !UserCoupon.already_used?(user_id,code)
           (coupon.expire_at.nil? || coupon.expire_at >= Date.current) &&
           (coupon.limit == 0 || coupon.limit > coupon.used)
           return true
@@ -15,19 +15,16 @@ class Coupon < ApplicationRecord
       return false
   end
   def self.discounted_price(price,code,user_id)
-      coupon=Coupon.find_by(code: code)
-      UserCoupon.new(coupon_id: coupon.id, user_id: user_id)
-      new_price = if is_valid?(code ,user_id)
-                    coupon.used++
-                    if coupon.percentage
-                      price - (price * (coupon.amount/100))
-                    else
-                      (price - coupon.amount)
-                    end
+    coupon = Coupon.find_by(code: code)
+    new_price = if is_valid?(code ,user_id)
+                  if coupon.percentage
+                    price - (price * (coupon.amount/100))
                   else
-                    price
+                    (price - coupon.amount)
                   end
-    UserCoupon.save
+                else
+                  price
+                end
   return new_price
   end
 
