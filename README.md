@@ -1,16 +1,16 @@
 # Cart-On-Rails
 
-eCommerce Platform -Using the Rails framework
+## eCommerce Platform - Using Rails alongside Angular 7
 
 Things you may want to know:
 
+* Angular version 7.1
+
 * Ruby version '2.6.1'
 
-* System dependencies
+* Rails 5.2.x
 
-  Rails 5.2.x
-  
-  MYSQL
+* MySQL
   
  ### use this commend to install missing gems
 ```
@@ -33,6 +33,8 @@ rails db:seed
 
 ## Now you can use it 
 ```
-rails server 
+rails s 
 ```
+
+To go to admin page navigate to localhost:3000/admin
 # Have Fun ....
