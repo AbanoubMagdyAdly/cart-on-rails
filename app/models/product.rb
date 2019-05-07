@@ -13,7 +13,11 @@ class Product < ApplicationRecord
   validates :in_stock, presence: true  ,:numericality => { greater_than_or_equal_to: 0 }
   validates :product_images, presence: true  
   
-
-
-  
+  def self.search(search)
+    if search
+      where(["title LIKE?", "%#{search}%"])
+    else
+      all
+    end
+  end
 end
